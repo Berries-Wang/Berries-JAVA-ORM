@@ -69,8 +69,13 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
     this.resourceLoader = resourceLoader;
   }
 
+  /**
+   * 执行org.springframework.context.annotation.ConfigurationClassPostProcessor#postProcessBeanDefinitionRegistry(org.springframework.beans.factory.support.BeanDefinitionRegistry)
+   * 会触发BeanDefinition
+   */
   @Override
   public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    // 获取注解上的配置数据
     var mapperScanAttrs = AnnotationAttributes
         .fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
     if (mapperScanAttrs != null) {
@@ -79,9 +84,15 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
     }
   }
 
+  /**
+   * BeanDefinition
+   * 注册之后，会调用org.mybatis.spring.mapper.MapperScannerConfigurer#postProcessBeanDefinitionRegistry(org.springframework.beans.factory.support.BeanDefinitionRegistry)
+   * 进行处理 在这个方法中，会再次扫描并注册bean ( MyBatis MapperBean)
+   */
   void registerBeanDefinitions(AnnotationMetadata annoMeta, AnnotationAttributes annoAttrs,
       BeanDefinitionRegistry registry, String beanName) {
 
+    // 构造BeanDefinition
     var builder = BeanDefinitionBuilder.genericBeanDefinition(MapperScannerConfigurer.class);
     builder.addPropertyValue("processPropertyPlaceHolders", annoAttrs.getBoolean("processPropertyPlaceHolders"));
 
