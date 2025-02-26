@@ -97,7 +97,8 @@ import org.springframework.util.StringUtils;
  * @see MapperFactoryBean
  * @see ClassPathMapperScanner
  */
-public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProcessor, InitializingBean, ApplicationContextAware, BeanNameAware {
+public class MapperScannerConfigurer
+    implements BeanDefinitionRegistryPostProcessor, InitializingBean, ApplicationContextAware, BeanNameAware {
 
   private String basePackage;
 
@@ -380,7 +381,8 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
   /**
    * 扫描并注册Mapper的BeanDefinition
    *
-   * @param registry the bean definition registry used by the application context
+   * @param registry
+   *          the bean definition registry used by the application context
    */
   @Override
   public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
