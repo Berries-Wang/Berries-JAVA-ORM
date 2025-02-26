@@ -11,6 +11,10 @@
         <setting name="defaultStatementTimeout" value="10"/>
 
         <!--打印出sql-->
-        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
+
+    <plugins>
+        <plugin interceptor="com.Berries.Wang.mybatis.plugin.STUMyBatisPlugin"/>
+    </plugins>
 </configuration>

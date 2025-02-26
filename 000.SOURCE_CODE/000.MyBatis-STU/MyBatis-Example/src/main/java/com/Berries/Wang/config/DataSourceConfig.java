@@ -1,14 +1,17 @@
 package com.Berries.Wang.config;
 
+import com.Berries.Wang.datasource.DynamicDataSource;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class DataSourceConfig {
-    @Bean
+    // @Bean
     public DataSource initDefaultDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(
@@ -29,4 +32,14 @@ public class DataSourceConfig {
         dataSource.setAsyncInit(true);
         return dataSource;
     }
+
+    @Bean
+    public DataSource dynamicDataSource() {
+        DynamicDataSource dynamicDataSource = new DynamicDataSource();
+        Map<Object, Object> dataSourceMap = new HashMap<>();
+        dataSourceMap.put("default", initDefaultDataSource());
+        dynamicDataSource.setTargetDataSources(dataSourceMap);
+        return dynamicDataSource;
+    }
+
 }

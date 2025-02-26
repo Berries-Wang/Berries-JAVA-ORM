@@ -100,8 +100,7 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             return new DefaultMethodInvoker(getMethodHandleJava8(method));
           }
           return new DefaultMethodInvoker(getMethodHandleJava9(method));
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException
-            | NoSuchMethodException e) {
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
           throw new RuntimeException(e);
         }
       });
